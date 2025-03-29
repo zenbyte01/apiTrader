@@ -2,6 +2,13 @@ import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import localFont from "next/font/local";
 import React from "react";
+import "@mantine/core/styles.css";
+import {
+  ColorSchemeScript,
+  MantineProvider,
+  mantineHtmlProps,
+} from "@mantine/core";
+import MyAppShell from "@/components/MyAppShell";
 
 const APP_NAME = "apiTrader";
 const APP_DEFAULT_TITLE = "My Awesome apiTrader PWA App";
@@ -68,11 +75,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" {...mantineHtmlProps}>
+      <head>
+        <ColorSchemeScript />
+      </head>
       <body
         className={`${inter.className} ${spaceGrotesk.variable} antialiased`}
       >
-        {children}
+        <MantineProvider>
+          <MyAppShell>{children}</MyAppShell>
+        </MantineProvider>
       </body>
     </html>
   );
